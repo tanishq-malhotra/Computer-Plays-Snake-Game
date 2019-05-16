@@ -8,7 +8,8 @@ Snake::Snake(int n, int m):r(n),c(m),tailC(0),sc(0),x(10),y(3)
 {
 	//creating grid and storing stage in grid
     grid = pat2grid(r, c);
-
+    //setting path to available
+    pathExist = true;
     sx = new int[50];
     sy = new int[50];
   	//used to generate food
@@ -170,7 +171,7 @@ return grid;
 //main driver function
 void Snake::driver()
 {
-    while(q.size() && gameover && sc <= 200)
+    while(q.size() && gameover == true && pathExist == true)
     {
       //getting the coodinates of the path from the queue and storing in the head of snake
       y = q.front(); q.pop();
@@ -195,15 +196,19 @@ void Snake::path()
 //this function is used to reverse the queue to reverse the coordinates stored in the queue
 void Snake::reverse_queue()
 {
-  stack<int> s;
-  while(q.size())
+  if(q.size() > 1)
   {
+    stack<int> s;
+    while(q.size())
+    {
     s.push(q.front());
     q.pop();
+    }
+    while(s.size())
+    {
+      q.push(s.top());
+      s.pop();
+    }
   }
-  while(s.size())
-  {
-    q.push(s.top());
-    s.pop();
-  }
+  else pathExist = false;
 }

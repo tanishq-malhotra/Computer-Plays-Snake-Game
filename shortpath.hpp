@@ -72,6 +72,7 @@ void shortest_path(int sx,int sy,int fx,int fy,queue<int> &ss,char **grid,int *s
 	//marking source as visited
 	visited[sx][sy] = true;
 
+	int path = 0;
 	int n=20,m=35;
 	//arrays to move left right up and down
 	int row[] = {-1,0,0,1};
@@ -88,7 +89,10 @@ void shortest_path(int sx,int sy,int fx,int fy,queue<int> &ss,char **grid,int *s
 
 		//checking if we reached our destination
 		if(grid[p.x][p.y] == 'F')
-			{  break; }
+			{  
+				path = 1; 
+				break; 
+			}
 		
 		//loop to move up down left and right
 		for(int i = 0; i < 4; i++)
@@ -111,6 +115,8 @@ void shortest_path(int sx,int sy,int fx,int fy,queue<int> &ss,char **grid,int *s
 
 	}
 	//backtracking to create the path
+	if(path == 1)
+	{
 	while(1)
 	{
 		//storing the corrdinates in the queue
@@ -127,4 +133,11 @@ void shortest_path(int sx,int sy,int fx,int fy,queue<int> &ss,char **grid,int *s
 	//deleting the head and food from grid 
 	grid[sx][sy] = ' '; 
 	grid[fx][fy] = ' ';
+	}
+	else
+	{
+		//clears the queue
+		queue<int> que;
+		swap(ss,que);
+	}
 }

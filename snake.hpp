@@ -29,6 +29,8 @@ queue<int> q;
 Snake();
 //parameterised constructor to set value's
 Snake(int ,int );
+//checks if path is available or not
+bool pathExist;
 //generating food at random position
 void food_random();
 //printing the main game
